@@ -8,7 +8,9 @@ const projects = [
     type: "نظام إدارة",
     title: "نظام إدارة الدليفري",
     icon: "🚚",
-    status: "متاح للبيع",
+    status: "اشتراك شهري",
+    price: "35,000 د.ع / شهرياً",
+    subscriptionOnly: true,
     description: "إدارة المطاعم والسائقين والطلبات مع متابعة حالة الطلب ولوحة تحكم سهلة.",
     features: ["إدارة سائقين", "تتبع الطلب", "لوحة تحكم", "هاتف + كمبيوتر"],
     demo: "#"
@@ -83,12 +85,13 @@ function renderProjects(filter = "all") {
         <span class="project-type">${p.type}</span>
         <h3>${p.title}</h3>
         <p>${p.description}</p>
+        ${p.price ? `<div class="project-price"><strong>${p.price}</strong></div>` : ""}
         <div class="project-features">
           ${p.features.map(f => `<span>${f}</span>`).join("")}
         </div>
         <div class="project-actions">
           <a href="${p.demo}" ${p.demo === "#" ? 'onclick="return false;"' : 'target="_blank"'}>معاينة</a>
-          <button onclick="orderProject('${p.title}')">طلب المشروع</button>
+          <button onclick="orderProject('${p.title}', ${p.subscriptionOnly ? 'true' : 'false'})">${p.subscriptionOnly ? "اشترك الآن" : "طلب المشروع"}</button>
         </div>
       </div>
     </article>
@@ -108,7 +111,11 @@ function wa(message) {
   window.open(url, "_blank");
 }
 
-function orderProject(name) {
+function orderProject(name, subscriptionOnly = false) {
+  if (subscriptionOnly) {
+    wa(`مرحباً، أريد الاشتراك في: ${name}\nالاشتراك الشهري: 35,000 د.ع\nأريد معرفة خطوات التفعيل.`);
+    return;
+  }
   wa(`مرحباً، أريد الاستفسار عن مشروع: ${name}\nأريد معرفة السعر والتفاصيل.`);
 }
 
