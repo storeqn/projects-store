@@ -1,5 +1,5 @@
-// عدّل رقم واتساب هنا بصيغة دولية وبدون +
-const WHATSAPP_NUMBER = "9647700000000";
+// رقم واتساب بصيغة دولية وبدون +
+const WHATSAPP_NUMBER = "9647731378313";
 
 const projects = [
   {
