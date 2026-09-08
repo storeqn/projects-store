@@ -13,7 +13,7 @@ const projects = [
     subscriptionOnly: true,
     description: "إدارة المطاعم والسائقين والطلبات مع متابعة حالة الطلب ولوحة تحكم سهلة.",
     features: ["إدارة سائقين", "تتبع الطلب", "لوحة تحكم", "هاتف + كمبيوتر"],
-    demo: "#"
+    demo: "delivery.html"
   },
   {
     id: 2,
@@ -90,7 +90,7 @@ function renderProjects(filter = "all") {
           ${p.features.map(f => `<span>${f}</span>`).join("")}
         </div>
         <div class="project-actions">
-          <a href="${p.demo}" ${p.demo === "#" ? 'onclick="return false;"' : 'target="_blank"'}>معاينة</a>
+          <a href="${p.demo}" ${p.demo === "#" ? 'onclick="return false;"' : ''}>معاينة</a>
           <button onclick="orderProject('${p.title}', ${p.subscriptionOnly ? 'true' : 'false'})">${p.subscriptionOnly ? "اشترك الآن" : "طلب المشروع"}</button>
         </div>
       </div>
