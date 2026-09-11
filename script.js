@@ -17,7 +17,7 @@ const projects = [
   },
   {
     id: 2,
-    category: "web",
+    category: "store",
     type: "متجر إلكتروني",
     title: "متجر الأمير براند",
     icon: "🛍️",
@@ -74,7 +74,14 @@ const projects = [
 
 function renderProjects(filter = "all") {
   const grid = document.getElementById("projectGrid");
+  if (!grid) return;
   const data = filter === "all" ? projects : projects.filter(p => p.category === filter);
+
+  if (!data.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:35px;border:1px dashed #334155;border-radius:18px;color:#94a3b8">لا توجد مشاريع في هذا القسم حالياً.</div>';
+    return;
+  }
+
   grid.innerHTML = data.map(p => `
     <article class="project-card">
       <div class="project-cover">
@@ -86,9 +93,7 @@ function renderProjects(filter = "all") {
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         ${p.price ? `<div class="project-price"><strong>${p.price}</strong></div>` : ""}
-        <div class="project-features">
-          ${p.features.map(f => `<span>${f}</span>`).join("")}
-        </div>
+        <div class="project-features">${p.features.map(f => `<span>${f}</span>`).join("")}</div>
         <div class="project-actions">
           <a href="${p.demo}" ${p.demo === "#" ? 'onclick="return false;"' : 'target="_blank" rel="noopener"'}>معاينة</a>
           <button onclick="orderProject('${p.title}', ${p.subscriptionOnly ? 'true' : 'false'})">${p.subscriptionOnly ? "اشترك الآن" : "طلب المشروع"}</button>
@@ -98,13 +103,11 @@ function renderProjects(filter = "all") {
   `).join("");
 }
 
-document.querySelectorAll("#filters button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll("#filters button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    renderProjects(btn.dataset.filter);
-  });
-});
+function setFilter(filter, button) {
+  document.querySelectorAll("#filters button").forEach(b => b.classList.remove("active"));
+  if (button) button.classList.add("active");
+  renderProjects(filter);
+}
 
 function wa(message) {
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -127,4 +130,4 @@ function contactWhatsApp() {
   wa("مرحباً، لدي استفسار بخصوص تصميم أو شراء مشروع رقمي.");
 }
 
-renderProjects();
+renderProjects("all");
