@@ -19,12 +19,12 @@ const projects = [
     id: 2,
     category: "web",
     type: "متجر إلكتروني",
-    title: "متجر منتجات واتساب",
+    title: "متجر الأمير براند",
     icon: "🛍️",
-    status: "جاهز للتخصيص",
-    description: "متجر سريع لعرض المنتجات والأقسام والعروض وسلة شراء وإرسال الطلب عبر واتساب.",
-    features: ["سلة", "عروض", "أقسام", "PWA"],
-    demo: "#"
+    status: "مشروع حقيقي",
+    description: "متجر إلكتروني متكامل لعرض مستحضرات التجميل والعطور مع الأقسام والعروض والسلة وإرسال الطلب عبر واتساب.",
+    features: ["سلة شراء", "عروض", "أقسام وبراندات", "PWA"],
+    demo: "https://storeqn.github.io/-alameer-brand/"
   },
   {
     id: 3,
@@ -90,7 +90,7 @@ function renderProjects(filter = "all") {
           ${p.features.map(f => `<span>${f}</span>`).join("")}
         </div>
         <div class="project-actions">
-          <a href="${p.demo}" ${p.demo === "#" ? 'onclick="return false;"' : ''}>معاينة</a>
+          <a href="${p.demo}" ${p.demo === "#" ? 'onclick="return false;"' : 'target="_blank" rel="noopener"'}>معاينة</a>
           <button onclick="orderProject('${p.title}', ${p.subscriptionOnly ? 'true' : 'false'})">${p.subscriptionOnly ? "اشترك الآن" : "طلب المشروع"}</button>
         </div>
       </div>
